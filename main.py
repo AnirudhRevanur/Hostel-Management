@@ -12,14 +12,14 @@ def submit6():
     fee.geometry("800x450")
     fee.title("INSERTION")
 
-    bcg=ImageTk.PhotoImage(Image.open('./hos.jpg'))
+    # bcg=ImageTk.PhotoImage(Image.open('./hos.jpg'))
 
     my_canvas = Canvas(fee, width=500, height=200)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
-    hostelid= Label(fee,text='ENNTER  MONTH',font=('bold',10))
+    hostelid= Label(fee,text='ENTER  MONTH',font=('bold',10))
     hostelid.place(x=40,y=50)
         
     sname= Label(fee,text='FEE STATUS',font=('bold',10))
@@ -90,15 +90,6 @@ def submit5():
     for col in cols:
         listBox.heading(col, text=col)    
         listBox.grid(row=1, column=0, columnspan=2)
-        
-   
-
-
-    #for row in rows:
-             #insertdata=str(row[0])+ '  '+ row[1]+ ' '+row[2]+ ' '+ row[3]+ ' '+ row[4]+ '   '+ row[5]+ ' ' + str(row[6])
-             #listBox = ttk.Treeview(show1, columns=insertdata, show='headings')
-             #list.insert(list.size()+1,insertdata)
-
 
     i=0 
     for student in student1: 
@@ -121,12 +112,12 @@ def submit4():
     update.geometry("800x450")
     update.title("UPDATION")
 
-    bcg=ImageTk.PhotoImage(Image.open('./img4.jpg'))
+    # bcg=ImageTk.PhotoImage(Image.open('./img4.jpg'))
 
     my_canvas = Canvas(update, width=800, height=450)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
     hostelid= Label(update,text='ENTER HOSTELID',font=('bold',10))
     hostelid.place(x=40,y=50)
@@ -212,12 +203,12 @@ def submit2():
     insert.geometry("800x500")
     insert.title("INSERTION")
 
-    bcg=ImageTk.PhotoImage(Image.open('./img3.jfif'))
+    # bcg=ImageTk.PhotoImage(Image.open('./img3.jfif'))
 
     my_canvas = Canvas(insert, width=800, height=450)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
     hostelid= Label(insert,text='ENTER HOSTELID',font=('bold',10))
     hostelid.place(x=40,y=50)
@@ -316,12 +307,12 @@ def submit3():
     dele.geometry("400x400")
     dele.title("DELETION")
 
-    bcg=ImageTk.PhotoImage(Image.open('./imge2.png'))
+    # bcg=ImageTk.PhotoImage(Image.open('./imge2.png'))
 
     my_canvas = Canvas(dele, width=400, height=400)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
 
     hostelid= Label(dele,text='ENTER HOSTELID',font=('bold',20))
@@ -364,12 +355,12 @@ def option():
     option.geometry("1000x600")
     option.title("HOSTEL PAGE")
 
-    bcg=ImageTk.PhotoImage(Image.open('./p.png'))
+    # bcg=ImageTk.PhotoImage(Image.open('./p.png'))
 
     my_canvas = Canvas(option, width=1000, height=600)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
     insert= Button(option, text="INSERT NEW STUDENT", font=("italic",20),bg="#10044d",fg="white",command=submit2)
     insert.place(x=10,y=75)
@@ -397,12 +388,12 @@ def Hostellogin():
     hostel.title("HOSTEL Login page")
 
     
-    bcg=ImageTk.PhotoImage(Image.open('./login.jpg'))
+    # bcg=ImageTk.PhotoImage(Image.open('./login.jpg'))
 
     my_canvas = Canvas(hostel, width=525, height=328)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
     ide=Label(hostel,text='HOSTEL LOGIN PAGE',bg="#041d78",fg="#83e6e6",font=('bold',20))
     
@@ -465,12 +456,12 @@ def login():
     login.geometry("600x300")
     login.title("student Login page")
 
-    bcg=ImageTk.PhotoImage(Image.open('./hl.jpg'))
+    # bcg=ImageTk.PhotoImage(Image.open('./hl.jpg'))
 
     my_canvas = Canvas(login, width=600, height=300)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
 
 
@@ -545,12 +536,12 @@ def logout():
     logout.geometry("600x300")
     logout.title("student Login page")
 
-    bcg=ImageTk.PhotoImage(Image.open('./hl.jpg'))
+    # bcg=ImageTk.PhotoImage(Image.open('./hl.jpg'))
 
     my_canvas = Canvas(logout, width=600, height=300)
     my_canvas.pack(fill="both", expand=True)
 
-    my_canvas.create_image(0,0, image=bcg, anchor="nw")
+    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
     sname= Label(logout,text='ENTER YOUR NAME',font=('bold',10))
     sname.place(x=20,y=30)
@@ -625,12 +616,12 @@ def LOG():
     log.geometry("600x500")
     log.title("LOG PAGE")
     #log.configure(bg='blue')
-    back=ImageTk.PhotoImage(Image.open('./hlo.jpeg'))
+    # back=ImageTk.PhotoImage(Image.open('./hlo.jpeg'))
 
     my_canvas1 = Canvas(log, width=600, height=500)
     my_canvas1.pack()
 
-    my_canvas1.create_image(0,0, image=back, anchor="nw")
+    # my_canvas1.create_image(0,0, image=back, anchor="nw")
     
     ide=Label(log,text='HOSTEL',bg="#041d78'",fg="#83e6e6",font=('bold',30))
     
@@ -657,8 +648,8 @@ def root():
     
     canvas = Canvas(root, width = 700, height = 466)
     canvas.pack()
-    img =ImageTk.PhotoImage(Image.open('./h1.jpg'))
-    canvas.create_image(20, 20, anchor=NW, image=img)
+    # img =ImageTk.PhotoImage(Image.open('./h1.jpg'))
+    # canvas.create_image(20, 20, anchor=NW, image=img)
    
 
     ide=Label(root,text='LOGIN PAGE',bg="#041d78",fg="#83e6e6",font=('bold',30))
