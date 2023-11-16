@@ -45,8 +45,8 @@ def submit6():
         mydb = connection.MySQLConnection(
                 host = "localhost",
                 user = "root",
-                passwd = "9461idfa",
-                database = "hostel"
+                passwd = "root",
+                database = "hostelmanagement"
                 )
         cursor = mydb.cursor()
         cursor.execute("insert into fee (fee_month,fee_status,SID)values('"+ feemonth +"','"+fstatus +"','"+ sid +"')")
@@ -70,12 +70,12 @@ def submit5():
     mydb = connection.MySQLConnection(
                 host = "localhost",
                 user = "root",
-                passwd = "Anusha@123",
-                database = "hostel"
+                passwd = "root",
+                database = "hostelmanagement"
 
                 )
     cursor = mydb.cursor()
-    cursor.execute("SELECT * FROM hostel.student;")
+    cursor.execute("SELECT * FROM hostelmanagement.student;")
     student1=cursor.fetchall()
     
     show1.title("SHOW")
@@ -170,12 +170,12 @@ def submit4():
                 mydb = connection.MySQLConnection(
                 host = "localhost",
                 user = "root",
-                passwd = "Anusha@123",
-                database = "hostel"
+                passwd = "root",
+                database = "hostelmanagement"
 
                 )
                 cursor = mydb.cursor()
-                cursor.execute("update student set sname='"+ sname+"',adress='"+adress+"',phone='" + phone+ "',sem='"+sem+"',roomid='"+roomno+"' where hostelid='"+ hostelid+"'")
+                cursor.execute("update student set sname='"+ sname+"',address='"+adress+"',phone='" + phone+ "',sem='"+sem+"',roomno='"+roomno+"' where hostelid='"+ hostelid+"'")
                 cursor.execute("commit")
 
                 MessageBox.showinfo("updating values are!","('"+ hostelid +"','"+ sname +"','"+ adress +"','"+ phone +"','"+ sem +"')")
@@ -272,8 +272,8 @@ def submit2():
                 mydb = connection.MySQLConnection(
                 host = "localhost",
                 user = "root",
-                passwd = "Anusha@123",
-                database = "hostel"
+                passwd = "root",
+                database = "hostelmanagement"
 
                 )
                 cursor = mydb.cursor()
@@ -330,8 +330,8 @@ def submit3():
            mydb = connection.MySQLConnection(
            host = "localhost",
            user = "root",
-           passwd = "Anusha@123",
-           database = "hostel"
+           passwd = "root",
+           database = "hostelmanagement"
 
                     )
            cursor = mydb.cursor()
@@ -424,8 +424,8 @@ def Hostellogin():
             mydb = connection.MySQLConnection(
             host = "localhost",
             user = "root",
-            passwd = "Anusha@123",
-            database = "hostel"
+            passwd = "root",
+            database = "hostelmanagement"
 
             )
             mycursor = mydb.cursor()
@@ -509,7 +509,7 @@ def login():
         if(hostelid=="" or sname=="" or place=="" or sem=="" or date=="" or time==""):
             MessageBox.showinfo("Insert Status","All Fields are required")
         else:
-            con= connection.MySQLConnection(host="localhost",user="root",password="Anusha@123",database="hostel")
+            con= connection.MySQLConnection(host="localhost",user="root",password="root",database="hostelmanagement")
             cursor = con.cursor()
             cursor.execute("insert into login (hostelids,sname,place,sem,date,time) values('"+ hostelid+"','"+ sname +"','"+ place +"','"+ sem +"','"+ date +"','"+ time +"')")
             cursor.execute("commit")
@@ -591,7 +591,7 @@ def logout():
         if(hostelid=="" or sname=="" or place=="" or sem=="" or date=="" or time==""):
             MessageBox.showinfo("Insert Status","All Fields are required")
         else:
-            con= connection.MySQLConnection(host="localhost",user="root",password="Anusha@123",database="hostel")
+            con= connection.MySQLConnection(host="localhost",user="root",password="root",database="hostelmanagement")
             cursor = con.cursor()
             cursor.execute("insert into logout (hostelids,sname,place,sem,date,time)  values('"+ hostelids+"','"+ sname +"','"+ place +"','"+ sem +"','"+ date +"','"+ time +"')")
             cursor.execute("commit")
@@ -623,7 +623,7 @@ def LOG():
 
     # my_canvas1.create_image(0,0, image=back, anchor="nw")
     
-    ide=Label(log,text='HOSTEL',bg="#041d78'",fg="#83e6e6",font=('bold',30))
+    ide=Label(log,text='HOSTEL',fg="#83e6e6",font=('bold',30))
     
     ide.place(x=250,y=40)
 
