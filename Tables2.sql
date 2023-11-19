@@ -1,7 +1,7 @@
 -- Tables for Hostel Management System
 
 CREATE TABLE student (
-    StudentID INT PRIMARY KEY,
+    hostelid INT PRIMARY KEY,
     sname VARCHAR(255),
     address VARCHAR(255),
     phone VARCHAR(15),
@@ -16,7 +16,7 @@ CREATE TABLE fee (
     fee_month VARCHAR(20),
     fee_status VARCHAR(20),
     SID INT,
-    FOREIGN KEY (SID) REFERENCES student(StudentID)
+    FOREIGN KEY (SID) REFERENCES student(hostelid)
 );
 
 CREATE TABLE Room
@@ -36,7 +36,7 @@ CREATE TABLE Mess
   Location INT NOT NULL,
   Name INT NOT NULL,
   MessID INT NOT NULL,
-  PRIMARY KEY (MessID)
+  PRIMARY KEY (MessID),
 );
 
 CREATE TABLE hostellogin (
