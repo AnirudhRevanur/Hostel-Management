@@ -8,7 +8,6 @@ load_dotenv()
 def connect_to_database():
     connection = mysql.connector.connect(
         host=os.environ["HOST"],
-        port=3306,
         user=os.environ["USER"],
         password=os.environ["PASSWORD"],
         database=os.environ["DATABASE"],

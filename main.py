@@ -81,6 +81,90 @@ def submit6():
     submitfee1.place(x=200, y=190)
     fee.mainloop()
 
+def submit7():
+    room_entry = Toplevel()
+    room_entry.geometry("400x300")
+    room_entry.title("Add Room")
+
+    room_canvas = Canvas(room_entry, width=400, height=300)
+    room_canvas.pack(fill="both", expand=True)
+
+    room_id_label = Label(room_entry, text="Room ID:", font=("bold", 12))
+    room_id_label.place(x=20, y=30)
+
+    room_id_entry = Entry(room_entry, font=("Arial", 12))
+    room_id_entry.place(x=150, y=30)
+    
+    type_entry = Entry(room_entry, font=("Arial", 12))
+    type_entry.place(x=150, y=50)
+    
+    capacity_entry = Entry(room_entry, font=("Arial", 12))
+    capacity_entry.place(x=150, y=70)
+    
+    booking_id_entry = Entry(room_entry, font=("Arial", 12))
+    booking_id_entry.place(x=150, y=90)
+    
+    student_id_entry = Entry(room_entry, font=("Arial", 12))
+    student_id_entry.place(x=150, y=120)
+
+    # Other labels and entries for additional room details...
+
+    def add_room_to_db():
+        room_id = room_id_entry.get()
+        type = type_entry.get()
+        capacity = capacity_entry.get()
+        student_id = student_id_entry.get()
+        booking_id = booking_id_entry.get()
+        # Retrieve other room details from respective Entry widgets
+
+        if room_id == "":
+            MessageBox.showinfo("Insert Status", "Room ID is required")
+        else:
+            mydb = connection.MySQLConnection(
+                host=os.environ["HOST"],
+                port=3306,
+                user=os.environ["USER"],
+                password=os.environ["PASSWORD"],
+                database=os.environ["DATABASE"],
+            )
+            cursor = mydb.cursor()
+
+            # Replace this with your table's column names and the respective variables
+            cursor.execute(
+                "INSERT INTO room (Room_Id, Type, Capacity, StudentID, BookingID) VALUES ('"
+            + room_id
+            + "','"
+            + type
+            + "','"
+            + capacity
+            + "','"
+            + student_id
+            + "','"
+            + booking_id
+            + "')"
+            )
+            cursor.execute("commit")
+
+            MessageBox.showinfo("Insert Status", "Room added successfully")
+
+            # Clear entry fields after insertion
+            room_id_entry.delete(0, "end")
+            # Clear other Entry fields for additional room details...
+
+            mydb.close()
+
+    submit_room_btn = Button(
+        room_entry,
+        text="Add Room",
+        font=("italic", 15),
+        bg="#10044d",
+        fg="white",
+        command=add_room_to_db,
+    )
+    submit_room_btn.place(x=150, y=250)
+
+    room_entry.mainloop()
+
 
 def submit5():
     show1 = Tk()
@@ -92,7 +176,7 @@ def submit5():
         database=os.environ["DATABASE"],
     )
     cursor = mydb.cursor()
-    cursor.execute("SELECT * FROM hostelmanagement.student;")
+    cursor.execute("SELECT * FROM dbmsprojfinal.student;")
     student1 = cursor.fetchall()
 
     show1.title("SHOW")
@@ -497,9 +581,11 @@ def option():
     details.place(x=720, y=200)
 
     info = Button(
-        option, text="GET INFO", font=("italic", 20), bg="#10044d", fg="white"
+        option, text="ADD ROOM", font=("italic", 20), bg="#10044d", fg="white", command=submit7
     )
     info.place(x=800, y=350)
+    
+    
     option.mainloop()
 
 
@@ -574,19 +660,15 @@ def Hostellogin():
     hostel.mainloop()
 
 
-def login():
+def student_login():
     login = Toplevel()
     login.geometry("600x300")
-    login.title("student Login page")
-
-    # bcg=ImageTk.PhotoImage(Image.open('./hl.jpg'))
+    login.title("Student Login Page")
 
     my_canvas = Canvas(login, width=600, height=300)
     my_canvas.pack(fill="both", expand=True)
 
-    # my_canvas.create_image(0,0, image=bcg, anchor="nw")
-
-    hostelid = Label(login, text="ENTER YOUR HOSTELID", font=("bold", 10))
+    hostelid = Label(login, text="ENTER YOUR ROOMID", font=("bold", 10))
     hostelid.place(x=20, y=30)
 
     sname = Label(login, text="ENTER YOUR NAME", font=("bold", 10))
@@ -604,8 +686,8 @@ def login():
     time = Label(login, text="ENTER TIME", font=("bold", 10))
     time.place(x=20, y=190)
 
-    e1_sname = Entry(login, show=None, font=("Arial", 14))
     e1_hostelid = Entry(login, show=None, font=("Arial", 14))
+    e1_sname = Entry(login, show=None, font=("Arial", 14))
     e1_place = Entry(login, show=None, font=("Arial", 14))
     e1_sem = Entry(login, show=None, font=("Arial", 14))
     e1_date = Entry(login, show=None, font=("Arial", 14))
@@ -618,7 +700,7 @@ def login():
     e1_date.place(x=200, y=160)
     e1_time.place(x=200, y=190)
 
-    def loginsubmit():
+    def login_submit():
         hostelid = e1_hostelid.get()
         sname = e1_sname.get()
         place = e1_place.get()
@@ -636,32 +718,20 @@ def login():
         ):
             MessageBox.showinfo("Insert Status", "All Fields are required")
         else:
-            con = connection.MySQLConnection(
-                host="localhost",
-                user="root",
-                password="root",
-                database="hostelmanagement",
+            mydb = connection.MySQLConnection(
+                host=os.environ["HOST"],
+                port=3306,
+                user=os.environ["USER"],
+                password=os.environ["PASSWORD"],
+                database=os.environ["DATABASE"],
             )
-            cursor = con.cursor()
+            cursor = mydb.cursor()
             cursor.execute(
-                "insert into login (hostelids,sname,place,sem,date,time) values('"
-                + hostelid
-                + "','"
-                + sname
-                + "','"
-                + place
-                + "','"
-                + sem
-                + "','"
-                + date
-                + "','"
-                + time
-                + "')"
+                "INSERT INTO student_login (roomid, sname, place, sem, date, time) VALUES (%s, %s, %s, %s, %s, %s)",
+                (hostelid, sname, place, sem, date, time),
             )
-            cursor.execute("commit")
+            mydb.commit()
             MessageBox.showinfo("Insert Status", "Inserted Successfully")
-
-            cursor.execute("commit")
 
             e1_hostelid.delete(0, "end")
             e1_sname.delete(0, "end")
@@ -669,14 +739,15 @@ def login():
             e1_sem.delete(0, "end")
             e1_date.delete(0, "end")
             e1_time.delete(0, "end")
+            mydb.close()
 
-            con.close()
-
-    loginsubmit = Button(
-        login, text="SUBMIT", font=("italic", 15), bg="#8cfffb", command=loginsubmit
+    login_submit = Button(
+        login, text="SUBMIT", font=("italic", 15), bg="#8cfffb", command=login_submit
     )
-    loginsubmit.place(x=130, y=250)
+    login_submit.place(x=130, y=250)
+
     login.mainloop()
+
 
 
 def logout():
@@ -745,7 +816,7 @@ def logout():
                 host="localhost",
                 user="root",
                 password="root",
-                database="hostelmanagement",
+                database="dbmsprojfinal",
             )
             cursor = con.cursor()
             cursor.execute(
@@ -799,7 +870,7 @@ def LOG():
     ide.place(x=250, y=40)
 
     butLI = Button(
-        log, text="LOGIN", font=("italic", 20), bg="#07f7cb", command=lambda: [login()]
+        log, text="LOGIN", font=("italic", 20), bg="#07f7cb", command=lambda: [student_login()]
     )
     butLI.place(x=190, y=200)
 
@@ -817,7 +888,7 @@ def test():
         port=3306,
         user="root",
         password="9461idfa",
-        database="hostelmanagement",
+        database="dbmsprojfinal",
     )
 
     cur = con.cursor()

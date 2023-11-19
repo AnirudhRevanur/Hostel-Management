@@ -1,7 +1,9 @@
 -- Tables for Hostel Management System
 
+-- Tables for Hostel Management System
+
 CREATE TABLE student (
-    StudentID INT PRIMARY KEY,
+    StudentID INT PRIMARY KEY AUTO_INCREMENT,
     sname VARCHAR(255),
     address VARCHAR(255),
     phone VARCHAR(15),
@@ -19,19 +21,17 @@ CREATE TABLE fee (
     FOREIGN KEY (SID) REFERENCES student(StudentID)
 );
 
-CREATE TABLE Room
-(
+CREATE TABLE Room (
   Room_Id INT NOT NULL,
   Type INT NOT NULL,
   Capacity INT NOT NULL,
-  StudentID INT NOT NULL,
-  BookingID INT NOT NULL,
+  StudentID INT,
+  BookingID INT,
   PRIMARY KEY (Room_Id),
   FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
 );
 
-CREATE TABLE Mess
-(
+CREATE TABLE Mess (
   Capacity INT NOT NULL,
   Location INT NOT NULL,
   Name INT NOT NULL,
@@ -45,30 +45,35 @@ CREATE TABLE hostellogin (
     password VARCHAR(255)
 );
 
-insert into hostellogin(name, password)
-values('admin', 'admin');
+INSERT INTO hostellogin(name, password)
+VALUES ('admin', 'admin');
 
-CREATE TABLE login (
+CREATE TABLE student_login (
     login_id INT PRIMARY KEY AUTO_INCREMENT,
-    hostelids INT,
+    studentid INT,
+    roomid INT,
     sname VARCHAR(255),
     place VARCHAR(255),
     sem INT,
     date DATE,
     time TIME,
-    FOREIGN KEY (hostelids) REFERENCES student(hostelid)
+    FOREIGN KEY (roomid) REFERENCES Room(Room_Id),
+    FOREIGN KEY (studentid) REFERENCES student(StudentID)
 );
 
-CREATE TABLE logout (
+CREATE TABLE student_logout (
     logout_id INT PRIMARY KEY AUTO_INCREMENT,
-    hostelids INT,
+    studentid INT,
+    roomid INT,
     sname VARCHAR(255),
     place VARCHAR(255),
     sem INT,
     date DATE,
     time TIME,
-    FOREIGN KEY (hostelids) REFERENCES student(hostelid)
+    FOREIGN KEY (roomid) REFERENCES Room(Room_Id),
+    FOREIGN KEY (studentid) REFERENCES student(StudentID)
 );
+
 
 --Trigger to automatically update the Room table whenever a student is assigned to a 
 
@@ -80,23 +85,27 @@ BEGIN
     DECLARE roomID INT;
     SELECT Room_Id INTO roomID FROM Room WHERE StudentID IS NULL LIMIT 1;
     IF roomID IS NOT NULL THEN
-        UPDATE Room SET StudentID = NEW.hostelid WHERE Room_Id = roomID;
+        INSERT INTO student_login (studentid, roomid, sname, place, sem, date, time)
+        VALUES (NEW.StudentID, roomID, NEW.sname, NEW.address, NEW.sem, CURRENT_DATE(), CURRENT_TIME());
+        UPDATE Room SET StudentID = NEW.StudentID, BookingID = roomID WHERE Room_Id = roomID;
     END IF;
 END;
 //
 DELIMITER ;
+
 
 -- procedure to calculate the total fee paid by a specific student.
 
 DELIMITER //
 CREATE PROCEDURE CalculateTotalFee(IN student_id INT)
 BEGIN
-    SELECT SUM(CASE WHEN fee_status = 'Paid' THEN 1 ELSE 0 END) AS TotalPaidFees
+    SELECT COUNT(*) AS TotalPaidFees
     FROM fee
-    WHERE SID = student_id;
+    WHERE SID = student_id AND fee_status = 'Paid';
 END;
 //
 DELIMITER ;
+
 
 -- function to retrieve the number of students in each room.
 
@@ -112,10 +121,11 @@ END;
 //
 DELIMITER ;
 
+
 -- Retrieve all students' names and their corresponding room numbers.
 SELECT s.sname, r.roomno
 FROM student s
-JOIN Room r ON s.hostelid = r.StudentID;
+JOIN Room r ON s.StudentID = r.StudentID;
 
 -- Get the details of all unpaid fees.
 SELECT * FROM fee WHERE fee_status = 'Unpaid';
@@ -123,24 +133,24 @@ SELECT * FROM fee WHERE fee_status = 'Unpaid';
 -- List all messes and their capacities.
 SELECT Name, Capacity FROM Mess;
 
-
 -- Retrieve the names of students who have paid their fees.
-SELECT sname
-FROM student
-WHERE hostelid IN (SELECT SID FROM fee WHERE fee_status = 'Paid');
+SELECT s.sname
+FROM student s
+JOIN fee f ON s.StudentID = f.SID
+WHERE f.fee_status = 'Paid';
 
 -- Get the details of students staying in rooms with a capacity greater than 3.
 SELECT *
 FROM student
-WHERE hostelid IN (SELECT StudentID FROM Room WHERE Capacity > 3);
+WHERE StudentID IN (SELECT StudentID FROM Room WHERE Capacity > 3);
 
 -- Find students who have logged in and out on the same date.
-SELECT sname
-FROM login l1
+SELECT l1.sname
+FROM student_login l1
 WHERE EXISTS (
     SELECT 1
-    FROM logout l2
-    WHERE l1.date = l2.date AND l1.hostelids = l2.hostelids
+    FROM student_logout l2
+    WHERE l1.date = l2.date AND l1.studentid = l2.studentid
 );
 
 -- Retrieve all rooms with students from the same semester.
@@ -149,12 +159,13 @@ FROM Room r
 WHERE EXISTS (
     SELECT 1
     FROM student s
-    WHERE r.StudentID = s.hostelid AND r.StudentID = s.hostelid AND r.StudentID = s.hostelid AND r.StudentID = s.hostelid s.sem = s.sem
+    WHERE r.StudentID = s.StudentID AND r.sem = s.sem
 );
 
 -- Find rooms with more than 2 students.
 SELECT Room_Id, COUNT(*) AS StudentCount
 FROM Room
+WHERE StudentID IS NOT NULL
 GROUP BY Room_Id
 HAVING COUNT(*) > 2;
 
@@ -163,6 +174,7 @@ SELECT SID, COUNT(*) AS TotalPaidFees
 FROM fee
 WHERE fee_status = 'Paid'
 GROUP BY SID;
+
 
 
 
