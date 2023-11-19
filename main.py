@@ -412,10 +412,11 @@ def submit3():
             MessageBox.showinfo("delete status", "ID is compolsary for delete")
         else:
             mydb = connection.MySQLConnection(
-                host="localhost",
-                user="root",
-                passwd="root",
-                database="hostelmanagement",
+                host=os.environ["HOST"],
+                port=3306,
+                user=os.environ["USER"],
+                password=os.environ["PASSWORD"],
+                database=os.environ["DATABASE"],
             )
             cursor = mydb.cursor()
             cursor.execute(
@@ -539,10 +540,11 @@ def Hostellogin():
             MessageBox.showerror("Insert Status", "All Fields are required")
         else:
             mydb = connection.MySQLConnection(
-                host="localhost",
-                user="root",
-                passwd="root",
-                database="hostelmanagement",
+                host=os.environ["HOST"],
+                port=3306,
+                user=os.environ["USER"],
+                password=os.environ["PASSWORD"],
+                database=os.environ["DATABASE"],
             )
             mycursor = mydb.cursor()
             sql = (
@@ -808,17 +810,21 @@ def LOG():
 
     log.mainloop()
 
+
 def test():
     con = connection.MySQLConnection(
         host="localhost",
         port=3306,
         user="root",
         password="9461idfa",
-        database="hostelmanagement"
+        database="hostelmanagement",
     )
 
     cur = con.cursor()
-    cur.execute("SHOW TABLES;")
+    cur.execute("select * from hostellogin")
+    result = cur.fetchall()
+    return result
+    # return "Hello"
 
 
 def root():
@@ -856,11 +862,19 @@ def root():
     but2.place(x=190, y=250)
 
     but3 = Button(
-        root, text="testing", font=("italic",20),bg="#83e6e6",command=lambda: [test()]
+        root,
+        text="testing",
+        font=("italic", 20),
+        bg="#83e6e6",
+        command=lambda: [output.delete("1.0", "end"), output.insert("end", test())],
     )
     but3.place(x=190, y=300)
 
+    output = Text(root, height=10, width=50)
+    output.place(x=190, y=350)
+
     root.mainloop()
+
 
 root()
 exit(0)

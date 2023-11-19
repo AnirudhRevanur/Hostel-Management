@@ -45,6 +45,9 @@ CREATE TABLE hostellogin (
     password VARCHAR(255)
 );
 
+insert into hostellogin(name, password)
+values('admin', 'admin');
+
 CREATE TABLE login (
     login_id INT PRIMARY KEY AUTO_INCREMENT,
     hostelids INT,
