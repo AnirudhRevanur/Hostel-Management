@@ -75,7 +75,7 @@ CREATE TABLE student_logout (
 );
 
 
---Trigger to automatically update the Room table whenever a student is assigned to a 
+-- Trigger to automatically update the Room table whenever a student is assigned to a 
 
 DELIMITER //
 CREATE TRIGGER AssignRoom
@@ -174,7 +174,3 @@ SELECT SID, COUNT(*) AS TotalPaidFees
 FROM fee
 WHERE fee_status = 'Paid'
 GROUP BY SID;
-
-
-
-

@@ -89,21 +89,34 @@ def submit7():
     room_canvas = Canvas(room_entry, width=400, height=300)
     room_canvas.pack(fill="both", expand=True)
 
-    room_id_label = Label(room_entry, text="Room ID:", font=("bold", 12))
+    room_id_label = Label(room_entry, text="Room ID: ", font=("bold", 12))
     room_id_label.place(x=20, y=30)
 
     room_id_entry = Entry(room_entry, font=("Arial", 12))
     room_id_entry.place(x=150, y=30)
     
+    type_id_label = Label(room_entry, text="Type of Room: ", font=("BOLD",12))
+    type_id_label.place(x=20, y=50)
+
     type_entry = Entry(room_entry, font=("Arial", 12))
     type_entry.place(x=150, y=50)
     
+    capacity_label = Label(room_entry, text="Capacity of Room: ", font=("BOLD",12))
+    capacity_label.place(x=20, y=70)
+
     capacity_entry = Entry(room_entry, font=("Arial", 12))
     capacity_entry.place(x=150, y=70)
     
+    booking_id_label = Label(room_entry, text="Booking ID of Room: ", font=("BOLD",12))
+    booking_id_label.place(x=20, y=90)
+
     booking_id_entry = Entry(room_entry, font=("Arial", 12))
     booking_id_entry.place(x=150, y=90)
     
+    student_id_label = Label(room_entry, text="Student ID: ", font=("BOLD",12))
+    student_id_label.place(x=20, y=120)
+
+
     student_id_entry = Entry(room_entry, font=("Arial", 12))
     student_id_entry.place(x=150, y=120)
 
@@ -226,7 +239,7 @@ def submit4():
 
     # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
-    hostelid = Label(update, text="ENTER HOSTELID", font=("bold", 10))
+    hostelid = Label(update, text="ENTER STUDENT ID", font=("bold", 10))
     hostelid.place(x=40, y=50)
 
     sname = Label(update, text="ENTER STUDENT NAME", font=("bold", 10))
@@ -339,7 +352,7 @@ def submit2():
 
     # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
-    hostelid = Label(insert, text="ENTER HOSTELID", font=("bold", 10))
+    hostelid = Label(insert, text="ENTER STUDENT ID", font=("bold", 10))
     hostelid.place(x=40, y=50)
 
     sname = Label(insert, text="ENTER STUDENT NAME", font=("bold", 10))
@@ -484,7 +497,7 @@ def submit3():
 
     # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
-    hostelid = Label(dele, text="ENTER HOSTELID", font=("bold", 20))
+    hostelid = Label(dele, text="ENTER STUDENT ID", font=("bold", 20))
     hostelid.place(x=50, y=70)
 
     e1_hostelid = Entry(dele, show=None, font=("Arial", 15))
@@ -504,7 +517,7 @@ def submit3():
             )
             cursor = mydb.cursor()
             cursor.execute(
-                "delete from student where hostelid='" + e1_hostelid.get() + "'"
+                "delete from student where studentid='" + e1_hostelid.get() + "'"
             )
             cursor.execute("commit")
 
@@ -642,8 +655,8 @@ def Hostellogin():
 
             if mycursor.fetchone():
                 MessageBox.showinfo("LOGIN Status", "successful")
+                hostel.destroy()
                 option()
-                hostel.quit()
 
             else:
                 MessageBox.showerror("LOGIN Status", "Invalid password or username")
@@ -680,7 +693,7 @@ def student_login():
     sem = Label(login, text="ENTER SEM", font=("bold", 10))
     sem.place(x=20, y=130)
 
-    date = Label(login, text="ENTER DATE", font=("bold", 10))
+    date = Label(login, text="ENTER DATE IN THE FORM YYYY-MM-DD", font=("bold", 10))
     date.place(x=20, y=160)
 
     time = Label(login, text="ENTER TIME", font=("bold", 10))
@@ -774,7 +787,7 @@ def logout():
     sem = Label(logout, text="ENTER SEM", font=("bold", 10))
     sem.place(x=20, y=130)
 
-    date = Label(logout, text="ENTER DATE", font=("bold", 10))
+    date = Label(logout, text="ENTER DATE IN THE FORM YYYY-MM-DD", font=("bold", 10))
     date.place(x=20, y=160)
 
     time = Label(logout, text="ENTER TIME", font=("bold", 10))
@@ -813,10 +826,10 @@ def logout():
             MessageBox.showinfo("Insert Status", "All Fields are required")
         else:
             con = connection.MySQLConnection(
-                host="localhost",
-                user="root",
-                password="root",
-                database="dbmsprojfinal",
+                host=os.environ['HOST'],
+                user=os.environ['USER'],
+                password=os.environ['PASSWORD'],
+                database=os.environ['DATABASE'],
             )
             cursor = con.cursor()
             cursor.execute(
@@ -882,22 +895,6 @@ def LOG():
     log.mainloop()
 
 
-def test():
-    con = connection.MySQLConnection(
-        host="localhost",
-        port=3306,
-        user="root",
-        password="9461idfa",
-        database="dbmsprojfinal",
-    )
-
-    cur = con.cursor()
-    cur.execute("select * from hostellogin")
-    result = cur.fetchall()
-    return result
-    # return "Hello"
-
-
 def root():
     root = Tk()
 
@@ -931,18 +928,6 @@ def root():
         command=lambda: [LOG(), root.quit],
     )
     but2.place(x=190, y=250)
-
-    but3 = Button(
-        root,
-        text="testing",
-        font=("italic", 20),
-        bg="#83e6e6",
-        command=lambda: [output.delete("1.0", "end"), output.insert("end", test())],
-    )
-    but3.place(x=190, y=300)
-
-    output = Text(root, height=10, width=50)
-    output.place(x=190, y=350)
 
     root.mainloop()
 

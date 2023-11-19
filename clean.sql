@@ -1,3 +1,3 @@
-drop database hostelmanagement;
-create database hostelmanagement;
-use database hostelmanagement;
+drop database dbmsprojfinal;
+create database dbmsprojfinal;
+use database dbmsprojfinal;
