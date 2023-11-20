@@ -192,37 +192,36 @@ def submit5():
     cursor.execute("SELECT * FROM dbmsprojfinal.student;")
     student1 = cursor.fetchall()
 
-    show1.title("SHOW")
+    show1.title("Student Records")
     show1.configure(bg="#041d78")
 
-    label = Label(show1, text="Student Records", font=("Arial", 10)).grid(
-        row=0, columnspan=3
-    )
+    style = ttk.Style()
+    style.theme_use("clam")  # Use any available theme
+    style.configure("Treeview.Heading", background="#6495ED", foreground="white")
 
-    cols = (
-        "hostelid",
-        "sname",
-        "address",
-        "phone",
-        "fathername",
-        "mothername",
-        "sem",
-        "roomno",
-    )
+    cols = [
+        "Student ID",
+        "Student Name",
+        "Address",
+        "Phone Number",
+        "Father's Name",
+        "Mother's Name",
+        "Semester",
+        "Room Number",
+    ]
+    
+    for i in range(len(cols)):
+        cols[i] = cols[i].upper()
     listBox = ttk.Treeview(show1, columns=cols, show="headings")
 
     for col in cols:
         listBox.heading(col, text=col)
-        listBox.grid(row=1, column=0, columnspan=2)
+        listBox.column(col, width=100)  # Set column width as needed
 
-    i = 0
     for student in student1:
-        for j in range(len(student)):
-            e = Entry(listBox, width=20, fg="blue")
-            e.grid(row=i, column=j)
-            e.insert(END, student[j])
-        i = i + 1
-    show1.mainloop()
+        listBox.insert("", "end", values=student)
+
+    listBox.pack()  # Use pack() instead of grid()
 
     mydb.close()
 
@@ -239,8 +238,8 @@ def submit4():
 
     # my_canvas.create_image(0,0, image=bcg, anchor="nw")
 
-    hostelid = Label(update, text="ENTER STUDENT ID", font=("bold", 10))
-    hostelid.place(x=40, y=50)
+    studentid = Label(update, text="ENTER STUDENT ID", font=("bold", 10))
+    studentid.place(x=40, y=50)
 
     sname = Label(update, text="ENTER STUDENT NAME", font=("bold", 10))
     sname.place(x=40, y=100)
@@ -257,14 +256,14 @@ def submit4():
     sem = Label(update, text="ENTER ROOM NUMBER", font=("bold", 10))
     sem.place(x=40, y=300)
 
-    e1_hostelid = Entry(update, show=None, font=("Arial", 14))
+    e1_studentid = Entry(update, show=None, font=("Arial", 14))
     e1_sname = Entry(update, show=None, font=("Arial", 14))
     e1_phone = Entry(update, show=None, font=("Arial", 14))
     e1_adress = Entry(update, show=None, font=("Arial", 14))
     e1_sem = Entry(update, show=None, font=("Arial", 14))
     e1_roomno = Entry(update, show=None, font=("Arial", 14))
 
-    e1_hostelid.place(x=200, y=50)
+    e1_studentid.place(x=200, y=50)
     e1_sname.place(x=200, y=100)
     e1_adress.place(x=200, y=150)
     e1_phone.place(x=200, y=200)
@@ -272,14 +271,14 @@ def submit4():
     e1_roomno.place(x=200, y=300)
 
     def a4():
-        hostelid = e1_hostelid.get()
+        studentid = e1_studentid.get()
         sname = e1_sname.get()
         adress = e1_adress.get()
         phone = e1_phone.get()
         sem = e1_sem.get()
         roomno = e1_roomno.get()
 
-        if hostelid == "" or sname == "" or adress == "" or phone == "" or sem == "":
+        if studentid == "" or sname == "" or adress == "" or phone == "" or sem == "":
             MessageBox.showinfo("Insert Status", "All Fields are required")
         else:
             mydb = connection.MySQLConnection(
@@ -301,8 +300,8 @@ def submit4():
                 + sem
                 + "',roomno='"
                 + roomno
-                + "' where hostelid='"
-                + hostelid
+                + "' where StudentID='"
+                + studentid
                 + "'"
             )
             cursor.execute("commit")
@@ -310,7 +309,7 @@ def submit4():
             MessageBox.showinfo(
                 "updating values are!",
                 "('"
-                + hostelid
+                + studentid
                 + "','"
                 + sname
                 + "','"
@@ -323,7 +322,7 @@ def submit4():
             )
             cursor.execute("commit")
 
-            e1_hostelid.delete(0, "end")
+            e1_studentid.delete(0, "end")
             e1_sname.delete(0, "end")
             e1_adress.delete(0, "end")
             e1_phone.delete(0, "end")
