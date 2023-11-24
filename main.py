@@ -81,6 +81,7 @@ def submit6():
     submitfee1.place(x=200, y=190)
     fee.mainloop()
 
+
 def submit7():
     room_entry = Toplevel()
     room_entry.geometry("400x300")
@@ -94,28 +95,27 @@ def submit7():
 
     room_id_entry = Entry(room_entry, font=("Arial", 12))
     room_id_entry.place(x=150, y=30)
-    
-    type_id_label = Label(room_entry, text="Type of Room: ", font=("BOLD",12))
+
+    type_id_label = Label(room_entry, text="Type of Room: ", font=("BOLD", 12))
     type_id_label.place(x=20, y=50)
 
     type_entry = Entry(room_entry, font=("Arial", 12))
     type_entry.place(x=150, y=50)
-    
-    capacity_label = Label(room_entry, text="Capacity of Room: ", font=("BOLD",12))
+
+    capacity_label = Label(room_entry, text="Capacity of Room: ", font=("BOLD", 12))
     capacity_label.place(x=20, y=70)
 
     capacity_entry = Entry(room_entry, font=("Arial", 12))
     capacity_entry.place(x=150, y=70)
-    
-    booking_id_label = Label(room_entry, text="Booking ID of Room: ", font=("BOLD",12))
+
+    booking_id_label = Label(room_entry, text="Booking ID of Room: ", font=("BOLD", 12))
     booking_id_label.place(x=20, y=90)
 
     booking_id_entry = Entry(room_entry, font=("Arial", 12))
     booking_id_entry.place(x=150, y=90)
-    
-    student_id_label = Label(room_entry, text="Student ID: ", font=("BOLD",12))
-    student_id_label.place(x=20, y=120)
 
+    student_id_label = Label(room_entry, text="Student ID: ", font=("BOLD", 12))
+    student_id_label.place(x=20, y=120)
 
     student_id_entry = Entry(room_entry, font=("Arial", 12))
     student_id_entry.place(x=150, y=120)
@@ -145,16 +145,16 @@ def submit7():
             # Replace this with your table's column names and the respective variables
             cursor.execute(
                 "INSERT INTO room (Room_Id, Type, Capacity, StudentID, BookingID) VALUES ('"
-            + room_id
-            + "','"
-            + type
-            + "','"
-            + capacity
-            + "','"
-            + student_id
-            + "','"
-            + booking_id
-            + "')"
+                + room_id
+                + "','"
+                + type
+                + "','"
+                + capacity
+                + "','"
+                + student_id
+                + "','"
+                + booking_id
+                + "')"
             )
             cursor.execute("commit")
 
@@ -209,7 +209,7 @@ def submit5():
         "Semester",
         "Room Number",
     ]
-    
+
     for i in range(len(cols)):
         cols[i] = cols[i].upper()
     listBox = ttk.Treeview(show1, columns=cols, show="headings")
@@ -244,8 +244,8 @@ def submit4():
     sname = Label(update, text="ENTER STUDENT NAME", font=("bold", 10))
     sname.place(x=40, y=100)
 
-    adress = Label(update, text="ENTER ADRESS", font=("bold", 10))
-    adress.place(x=40, y=150)
+    address = Label(update, text="ENTER ADDRESS", font=("bold", 10))
+    address.place(x=40, y=150)
 
     phone = Label(update, text="ENTER PHONE NUMBER", font=("bold", 10))
     phone.place(x=40, y=200)
@@ -259,13 +259,13 @@ def submit4():
     e1_studentid = Entry(update, show=None, font=("Arial", 14))
     e1_sname = Entry(update, show=None, font=("Arial", 14))
     e1_phone = Entry(update, show=None, font=("Arial", 14))
-    e1_adress = Entry(update, show=None, font=("Arial", 14))
+    e1_address = Entry(update, show=None, font=("Arial", 14))
     e1_sem = Entry(update, show=None, font=("Arial", 14))
     e1_roomno = Entry(update, show=None, font=("Arial", 14))
 
     e1_studentid.place(x=200, y=50)
     e1_sname.place(x=200, y=100)
-    e1_adress.place(x=200, y=150)
+    e1_address.place(x=200, y=150)
     e1_phone.place(x=200, y=200)
     e1_sem.place(x=200, y=250)
     e1_roomno.place(x=200, y=300)
@@ -273,12 +273,12 @@ def submit4():
     def a4():
         studentid = e1_studentid.get()
         sname = e1_sname.get()
-        adress = e1_adress.get()
+        address = e1_address.get()
         phone = e1_phone.get()
         sem = e1_sem.get()
         roomno = e1_roomno.get()
 
-        if studentid == "" or sname == "" or adress == "" or phone == "" or sem == "":
+        if studentid == "" or sname == "" or address == "" or phone == "" or sem == "":
             MessageBox.showinfo("Insert Status", "All Fields are required")
         else:
             mydb = connection.MySQLConnection(
@@ -293,7 +293,7 @@ def submit4():
                 "update student set sname='"
                 + sname
                 + "',address='"
-                + adress
+                + address
                 + "',phone='"
                 + phone
                 + "',sem='"
@@ -313,7 +313,7 @@ def submit4():
                 + "','"
                 + sname
                 + "','"
-                + adress
+                + address
                 + "','"
                 + phone
                 + "','"
@@ -324,7 +324,7 @@ def submit4():
 
             e1_studentid.delete(0, "end")
             e1_sname.delete(0, "end")
-            e1_adress.delete(0, "end")
+            e1_address.delete(0, "end")
             e1_phone.delete(0, "end")
             e1_sem.delete(0, "end")
             e1_roomno.delete(0, "end")
@@ -357,8 +357,8 @@ def submit2():
     sname = Label(insert, text="ENTER STUDENT NAME", font=("bold", 10))
     sname.place(x=40, y=100)
 
-    adress = Label(insert, text="ENTER ADRESS", font=("bold", 10))
-    adress.place(x=40, y=150)
+    address = Label(insert, text="ENTER address", font=("bold", 10))
+    address.place(x=40, y=150)
 
     phone = Label(insert, text="ENTER PHONE NUMBER", font=("bold", 10))
     phone.place(x=40, y=200)
@@ -378,7 +378,7 @@ def submit2():
     e1_hostelid = Entry(insert, show=None, font=("Arial", 14))
     e1_sname = Entry(insert, show=None, font=("Arial", 14))
     e1_phone = Entry(insert, show=None, font=("Arial", 14))
-    e1_adress = Entry(insert, show=None, font=("Arial", 14))
+    e1_address = Entry(insert, show=None, font=("Arial", 14))
     e1_father = Entry(insert, show=None, font=("Arial", 14))
     e1_mother = Entry(insert, show=None, font=("Arial", 14))
     e1_sem = Entry(insert, show=None, font=("Arial", 14))
@@ -386,7 +386,7 @@ def submit2():
 
     e1_hostelid.place(x=200, y=50)
     e1_sname.place(x=200, y=100)
-    e1_adress.place(x=200, y=150)
+    e1_address.place(x=200, y=150)
     e1_phone.place(x=200, y=200)
     e1_father.place(x=200, y=250)
     e1_mother.place(x=200, y=300)
@@ -396,7 +396,7 @@ def submit2():
     def a1():
         hostelid = e1_hostelid.get()
         sname = e1_sname.get()
-        adress = e1_adress.get()
+        address = e1_address.get()
         phone = e1_phone.get()
         father = e1_father.get()
         mother = e1_mother.get()
@@ -406,7 +406,7 @@ def submit2():
         if (
             hostelid == ""
             or sname == ""
-            or adress == ""
+            or address == ""
             or phone == ""
             or father == ""
             or mother == ""
@@ -428,7 +428,7 @@ def submit2():
                 + " ','"
                 + sname
                 + "','"
-                + adress
+                + address
                 + "','"
                 + phone
                 + "','"
@@ -450,7 +450,7 @@ def submit2():
                 + "','"
                 + sname
                 + "','"
-                + adress
+                + address
                 + "','"
                 + phone
                 + "','"
@@ -467,7 +467,7 @@ def submit2():
 
             e1_hostelid.delete(0, "end")
             e1_sname.delete(0, "end")
-            e1_adress.delete(0, "end")
+            e1_address.delete(0, "end")
             e1_phone.delete(0, "end")
             e1_father.delete(0, "end")
             e1_mother.delete(0, "end")
@@ -593,11 +593,15 @@ def option():
     details.place(x=720, y=200)
 
     info = Button(
-        option, text="ADD ROOM", font=("italic", 20), bg="#10044d", fg="white", command=submit7
+        option,
+        text="ADD ROOM",
+        font=("italic", 20),
+        bg="#10044d",
+        fg="white",
+        command=submit7,
     )
     info.place(x=800, y=350)
-    
-    
+
     option.mainloop()
 
 
@@ -675,12 +679,12 @@ def Hostellogin():
 def student_login():
     login = Toplevel()
     login.geometry("600x300")
-    login.title("Student Login Page")
+    login.title("Student Check In Page")
 
     my_canvas = Canvas(login, width=600, height=300)
     my_canvas.pack(fill="both", expand=True)
 
-    hostelid = Label(login, text="ENTER YOUR ROOMID", font=("bold", 10))
+    hostelid = Label(login, text="ENTER YOUR STUDENT ID", font=("bold", 10))
     hostelid.place(x=20, y=30)
 
     sname = Label(login, text="ENTER YOUR NAME", font=("bold", 10))
@@ -761,11 +765,10 @@ def student_login():
     login.mainloop()
 
 
-
 def logout():
     logout = Toplevel()
     logout.geometry("600x300")
-    logout.title("student Login page")
+    logout.title("student Check Out page")
 
     # bcg=ImageTk.PhotoImage(Image.open('./hl.jpg'))
 
@@ -777,7 +780,7 @@ def logout():
     sname = Label(logout, text="ENTER YOUR NAME", font=("bold", 10))
     sname.place(x=20, y=30)
 
-    hostelid = Label(logout, text="ENTER YOUR HOSTELID", font=("bold", 10))
+    hostelid = Label(logout, text="ENTER YOUR STUDENT ID", font=("bold", 10))
     hostelid.place(x=20, y=60)
 
     place = Label(logout, text="ENTER PLACE", font=("bold", 10))
@@ -825,10 +828,10 @@ def logout():
             MessageBox.showinfo("Insert Status", "All Fields are required")
         else:
             con = connection.MySQLConnection(
-                host=os.environ['HOST'],
-                user=os.environ['USER'],
-                password=os.environ['PASSWORD'],
-                database=os.environ['DATABASE'],
+                host=os.environ["HOST"],
+                user=os.environ["USER"],
+                password=os.environ["PASSWORD"],
+                database=os.environ["DATABASE"],
             )
             cursor = con.cursor()
             cursor.execute(
@@ -882,7 +885,11 @@ def LOG():
     ide.place(x=250, y=40)
 
     butLI = Button(
-        log, text="LOGIN", font=("italic", 20), bg="#07f7cb", command=lambda: [student_login()]
+        log,
+        text="LOGIN",
+        font=("italic", 20),
+        bg="#07f7cb",
+        command=lambda: [student_login()],
     )
     butLI.place(x=190, y=200)
 
@@ -892,6 +899,57 @@ def LOG():
     butLO.place(x=190, y=300)
 
     log.mainloop()
+
+
+def test():
+    test = Toplevel()
+    test.geometry("800x600")
+    test.title("Custom Query")
+
+    ide = Label(
+        test, text="Execute your custom queries here", fg="#83e6e6", font=("bold", 30)
+    )
+    ide.place(x=200, y=40)
+
+    text_area = Entry(test, show=None, font=("Arial", 17), width=50)
+    text_area.place(x=200, y=100)
+
+    def execute_query():
+        sql = text_area.get()
+        cur.execute(sql)
+
+        # Fetch all the rows and display them in the result_text widget
+        result = cur.fetchall()
+        result_text.config(state="normal")
+        result_text.delete(1.0, "end")
+        for row in result:
+            result_text.insert("end", str(row) + "\n")
+        result_text.config(state="disabled")
+
+    execute_button = Button(
+        test, text="Execute", command=execute_query, font=("Arial", 15)
+    )
+    execute_button.place(x=300, y=200)
+
+    result_text = Text(test, wrap="none", font=("Arial", 12), height=15, width=80)
+    result_text.place(x=50, y=300)
+
+    # Add a scrollbar to the result_text widget
+    # scrollbar = Scrollbar(test, command=result_text.yview)
+    # scrollbar.place(x=750, y=150, relheight=0.75)
+    # result_text.config(yscrollcommand=scrollbar.set)
+
+    # Database connection setup
+    mydb = connection.MySQLConnection(
+        host=os.environ["HOST"],
+        port=3306,
+        user=os.environ["USER"],
+        password=os.environ["PASSWORD"],
+        database=os.environ["DATABASE"],
+    )
+    cur = mydb.cursor()
+
+    test.mainloop()
 
 
 def root():
@@ -927,6 +985,16 @@ def root():
         command=lambda: [LOG(), root.quit],
     )
     but2.place(x=190, y=250)
+
+    but3 = Button(
+        root,
+        text="Click here to execute any queries",
+        font=("italic", 20),
+        bg="#83e6e6",
+        command=lambda: [test(), root.quit],
+    )
+
+    but3.place(x=190, y=350)
 
     root.mainloop()
 
