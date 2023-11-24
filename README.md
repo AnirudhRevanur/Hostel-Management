@@ -14,7 +14,7 @@ The Hostel Management System is a comprehensive software solution designed to au
 5. ___Cafeteria Management:___ Tracking cafeteria details, operations, and services.
 6. ___Reporting and Analytics:___ Generating various reports to provide insights into hostel operations.
 
-Steps to run:
+### Steps to run:
 
 1. Add the values for HOST, USER, PASSWORD, DATABASE in a .env file. These values must match your local MySQL Connection. Name the database as 'dbmsprojfinal'
 2. Run `python execute_SQL.py` in the terminal
