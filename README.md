@@ -16,8 +16,6 @@ Reporting and Analytics: Generating various reports to provide insights into hos
 
 Steps to run:
 
-1) Add the values for HOST, USER, PASSWORD, DATABASE in a .env file
-   These values must match your local MySQL Connection
-   Name the database as 'dbmsprojfinal'
+1) Add the values for HOST, USER, PASSWORD, DATABASE in a .env file. These values must match your local MySQL Connection. Name the database as 'dbmsprojfinal'
 2) Run python execute_SQL.py in the terminal
 3) Run python main.py in the terminal
