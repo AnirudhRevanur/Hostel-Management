@@ -1,7 +1,5 @@
 -- Tables for Hostel Management System
 
--- Tables for Hostel Management System
-
 CREATE TABLE student (
     StudentID INT PRIMARY KEY AUTO_INCREMENT,
     sname VARCHAR(255),
